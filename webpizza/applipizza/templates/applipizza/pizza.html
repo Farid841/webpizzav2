@@ -1,0 +1,47 @@
+{% extends 'applipizza/base.html' %}
+
+{% block title %}
+    Une pizza
+{% endblock %}
+
+{% block content %}
+<h1> Voici notre pizza </h1>
+
+<h3 class='price' style="color: #fac564">      {{pizza}} </h3>
+
+<br>
+
+<h2> Liste des ingredients </h2>
+
+<table class="ftco-animate" width="100%" border="1" cellspacing="1" cellpadding="5">
+    <thead>
+    <tr>
+    <th>Ingredient</td>
+    <th>Quantité</td>
+    <th>Action</td>
+    </tr>
+    </thead>
+    <tbody>
+        {% for ing in liste %}
+            <tr>
+            <td>{{ing.nom}}</td>
+            <td>{{ing.qte}}</td>
+            <td> 
+                <a class="btn btn-white btn-outline-white" href="/pizzas/{{pizza.idPizza}}/deleteIngredient/{{ing.idComposition}}"> Supprimer </a> 
+            </td>
+            </tr>
+            <tr>
+        {% endfor %}
+   </tbody>
+</table>
+<br>
+<br>
+<h2> Ajouter  ou Modifier un ingredient </h2>
+
+<form  class="ftco-animate" action="/pizzas/{{pizza.idPizza}}/addIngredient/" method="post">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="Submit"/>
+</form>
+
+{% endblock %}
